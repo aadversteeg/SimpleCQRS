@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace SimpleCQRS.Application.Commands
 {
     public class CreateInventoryItem : Command

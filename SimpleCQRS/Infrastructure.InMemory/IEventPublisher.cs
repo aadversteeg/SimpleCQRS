@@ -1,5 +1,4 @@
-﻿using SimpleCQRS.Domain;
-using SimpleCQRS.Domain.Events;
+﻿using SimpleCQRS.Domain.Events;
 
 namespace SimpleCQRS.Infrastructure.InMemory
 {
