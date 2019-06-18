@@ -25,11 +25,11 @@ namespace SimpleCQRS.Infrastructure.InMemory
             handlers.Add((x => handler((T)x)));
         }
 
-        public void Send<T>(T command) where T : Command
+        public void Send(Command command)
         {
             List<Action<Message>> handlers;
 
-            if (_routes.TryGetValue(typeof(T), out handlers))
+            if (_routes.TryGetValue(command.GetType(), out handlers))
             {
                 if (handlers.Count != 1) throw new InvalidOperationException("cannot send to more than one handler");
                 handlers[0](command);
@@ -40,7 +40,7 @@ namespace SimpleCQRS.Infrastructure.InMemory
             }
         }
 
-        public void Publish<T>(T @event) where T : Event
+        public void Publish(Event @event)
         {
             List<Action<Message>> handlers;
 
