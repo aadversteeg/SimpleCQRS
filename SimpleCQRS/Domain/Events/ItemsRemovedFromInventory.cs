@@ -2,7 +2,7 @@
 
 namespace SimpleCQRS.Domain.Events
 {
-    public class ItemsRemovedFromInventory : Event
+    public class ItemsRemovedFromInventory : DomainEvent
     {
         public Guid Id;
         public readonly int Count;

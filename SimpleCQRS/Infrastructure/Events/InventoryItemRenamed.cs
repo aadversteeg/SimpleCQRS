@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimpleCQRS.Domain.Events
+namespace SimpleCQRS.Infrastructure.Events
 {
-    public class InventoryItemRenamed : DomainEvent
+    public class InventoryItemRenamed : Event
     {
         public readonly Guid Id;
         public readonly string NewName;

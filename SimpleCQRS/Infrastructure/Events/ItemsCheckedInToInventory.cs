@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimpleCQRS.Domain.Events
+namespace SimpleCQRS.Infrastructure.Events
 {
-    public class ItemsCheckedInToInventory : DomainEvent
+    public class ItemsCheckedInToInventory : Event
     {
         public Guid Id;
         public readonly int Count;

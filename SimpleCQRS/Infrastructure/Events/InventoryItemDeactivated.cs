@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimpleCQRS.Domain.Events
+namespace SimpleCQRS.Infrastructure.Events
 {
-    public class InventoryItemDeactivated : DomainEvent
+    public class InventoryItemDeactivated : Event
     {
         public readonly Guid Id;
 

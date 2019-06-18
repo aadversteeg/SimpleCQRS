@@ -1,10 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using SimpleCQRS;
 using SimpleCQRS.Application;
 using SimpleCQRS.Application.Commands;
 using SimpleCQRS.Domain;
-using SimpleCQRS.Domain.Events;
+using SimpleCQRS.Infrastructure.Events;
 using SimpleCQRS.Infrastructure.InMemory;
 
 namespace CQRSGui

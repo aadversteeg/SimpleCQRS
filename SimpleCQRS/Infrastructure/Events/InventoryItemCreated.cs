@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimpleCQRS.Domain.Events
+namespace SimpleCQRS.Infrastructure.Events
 {
-    public class InventoryItemCreated : DomainEvent
+    public class InventoryItemCreated : Event
     {
         public readonly Guid Id;
         public readonly string Name;

@@ -1,4 +1,6 @@
-﻿namespace SimpleCQRS.Domain.Events
+﻿using SimpleCQRS.Domain;
+
+namespace SimpleCQRS.Infrastructure
 {
     public class Event : Message
     {

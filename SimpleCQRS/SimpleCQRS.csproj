@@ -69,7 +69,7 @@
     <Compile Include="Application\Commands\RemoveItemsFromInventory.cs" />
     <Compile Include="Application\Commands\RenameInventoryItem.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
-    <Compile Include="Domain\Events\Event.cs" />
+    <Compile Include="Domain\Events\DomainEvent.cs" />
     <Compile Include="Domain\Events\InventoryItemCreated.cs" />
     <Compile Include="Domain\Events\InventoryItemDeactivated.cs" />
     <Compile Include="Domain\Events\InventoryItemRenamed.cs" />
@@ -91,6 +91,12 @@
     <Compile Include="Infrastructure.InMemory\Repository.cs" />
     <Compile Include="InfrastructureCrap.DontBotherReadingItsNotImportant.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\Event.cs" />
+    <Compile Include="Infrastructure\Events\InventoryItemCreated.cs" />
+    <Compile Include="Infrastructure\Events\InventoryItemDeactivated.cs" />
+    <Compile Include="Infrastructure\Events\InventoryItemRenamed.cs" />
+    <Compile Include="Infrastructure\Events\ItemsCheckedInToInventory.cs" />
+    <Compile Include="Infrastructure\Events\ItemsRemovedFromInventory.cs" />
     <Compile Include="Infrastructure\IEventStore.cs" />
     <Compile Include="Domain\Message.cs" />
     <Compile Include="Infrastructure\InventoryItemDetailsDto.cs" />
