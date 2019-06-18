@@ -98,7 +98,7 @@
     <Compile Include="Infrastructure\Events\ItemsCheckedInToInventory.cs" />
     <Compile Include="Infrastructure\Events\ItemsRemovedFromInventory.cs" />
     <Compile Include="Infrastructure\IEventStore.cs" />
-    <Compile Include="Domain\Message.cs" />
+    <Compile Include="Application\Message.cs" />
     <Compile Include="Infrastructure\InventoryItemDetailsDto.cs" />
     <Compile Include="Infrastructure\InventoryItemListDto.cs" />
     <Compile Include="Infrastructure\IReadModelFacade.cs" />

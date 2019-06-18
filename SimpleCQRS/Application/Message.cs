@@ -1,4 +1,4 @@
-namespace SimpleCQRS.Domain
+namespace SimpleCQRS.Application
 {
     public interface Message
     {

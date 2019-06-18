@@ -1,4 +1,4 @@
-﻿using SimpleCQRS.Domain;
+﻿using SimpleCQRS.Application;
 
 namespace SimpleCQRS.Infrastructure
 {
