@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.BullshitDatabase", "Infrastructure.BullshitDatabase\Infrastructure.BullshitDatabase.csproj", "{54D8A195-8162-4288-AE40-894E9E886F62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{FF584A6E-924E-40B8-AE88-9F32752FA28D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,18 @@ Global
 		{54D8A195-8162-4288-AE40-894E9E886F62}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{54D8A195-8162-4288-AE40-894E9E886F62}.Release|x86.ActiveCfg = Release|Any CPU
 		{54D8A195-8162-4288-AE40-894E9E886F62}.Release|x86.Build.0 = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Debug|x86.Build.0 = Debug|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF584A6E-924E-40B8-AE88-9F32752FA28D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

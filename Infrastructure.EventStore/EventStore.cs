@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.InMemory
+namespace Infrastructure.EventStore
 {
     public class EventStore : IEventStore
     {

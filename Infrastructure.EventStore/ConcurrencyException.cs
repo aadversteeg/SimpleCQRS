@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.InMemory
+namespace Infrastructure.EventStore
 {
     public class ConcurrencyException : Exception
     {
