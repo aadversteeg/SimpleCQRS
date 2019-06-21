@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,20 +27,15 @@ namespace WebApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMediatR(typeof(Application.Commands.CreateInventoryItem).Assembly);
 
             var bus = new Infrastructure.InMemory.FakeBus();
 
             var storage = new Infrastructure.InMemory.EventStore(bus);
             var rep = new Infrastructure.InMemory.Repository<Domain.InventoryItem>(storage);
 
-            var commands = new Application.InventoryCommandHandlers(rep);
-            bus.RegisterHandler<Application.Commands.CheckInItemsToInventory>(commands.Handle);
-            bus.RegisterHandler<Application.Commands.CreateInventoryItem>(commands.Handle);
-            bus.RegisterHandler<Application.Commands.DeactivateInventoryItem>(commands.Handle);
-            bus.RegisterHandler<Application.Commands.RemoveItemsFromInventory>(commands.Handle);
-            bus.RegisterHandler<Application.Commands.RenameInventoryItem>(commands.Handle);
+            services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.InMemory.Repository<Domain.InventoryItem>>(_ => rep);
 
             var detail = new Infrastructure.InMemory.InventoryItemDetailView();
             bus.RegisterHandler<Infrastructure.Events.InventoryItemCreated>(detail.Handle);
@@ -53,7 +49,6 @@ namespace WebApplication
             bus.RegisterHandler<Infrastructure.Events.InventoryItemRenamed>(list.Handle);
             bus.RegisterHandler<Infrastructure.Events.InventoryItemDeactivated>(list.Handle);
 
-            services.AddSingleton<Infrastructure.InMemory.ICommandSender, Infrastructure.InMemory.FakeBus>( s => bus);
             services.AddSingleton<Infrastructure.IReadModelFacade, Infrastructure.InMemory.ReadModelFacade>();
         }
 

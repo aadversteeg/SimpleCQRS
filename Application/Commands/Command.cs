@@ -1,6 +1,8 @@
-﻿namespace Application.Commands
+﻿using MediatR;
+
+namespace Application.Commands
 {
-    public class Command : Message
+    public class Command : IRequest
     {
     }
 }

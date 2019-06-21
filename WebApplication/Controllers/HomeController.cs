@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Application.Commands;
 using Infrastructure;
 using Infrastructure.InMemory;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Models;
 
@@ -10,12 +12,12 @@ namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICommandSender _bus;
+        private readonly IMediator _mediator;
         private readonly IReadModelFacade _readmodel;
 
-        public HomeController(ICommandSender bus, IReadModelFacade readmodel)
+        public HomeController(IMediator mediator, IReadModelFacade readmodel)
         {
-            _bus = bus;
+            _mediator = mediator;
             _readmodel = readmodel;
         }
 
@@ -48,9 +50,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Models.Home.Add model)
+        public async Task<ActionResult> Add(Models.Home.Add model)
         {
-            _bus.Send(new CreateInventoryItem(Guid.NewGuid(), model.Name));
+            await _mediator.Send(new CreateInventoryItem(Guid.NewGuid(), model.Name));
             return RedirectToAction("Index");
         }
 
@@ -67,10 +69,10 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeName(Models.Home.ChangeName model)
+        public async Task<ActionResult> ChangeName(Models.Home.ChangeName model)
         {
             var command = new RenameInventoryItem(model.Id, model.Name, model.Version);
-            _bus.Send(command);
+            await _mediator.Send(command);
 
             return RedirectToAction("Index");
         }
@@ -87,9 +89,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Deactivate(Models.Home.Deactivate model)
+        public async Task<ActionResult> Deactivate(Models.Home.Deactivate model)
         {
-            _bus.Send(new DeactivateInventoryItem(model.Id, model.Version));
+            await _mediator.Send(new DeactivateInventoryItem(model.Id, model.Version));
             return RedirectToAction("Index");
         }
 
@@ -106,9 +108,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckIn(Models.Home.CheckIn model)
+        public async Task<ActionResult> CheckIn(Models.Home.CheckIn model)
         {
-            _bus.Send(new CheckInItemsToInventory(model.Id, model.Number, model.Version));
+            await _mediator.Send(new CheckInItemsToInventory(model.Id, model.Number, model.Version));
             return RedirectToAction("Index");
         }
 
@@ -124,9 +126,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Remove(Models.Home.Remove model)
+        public async Task<ActionResult> Remove(Models.Home.Remove model)
         {
-            _bus.Send(new RemoveItemsFromInventory(model.Id, model.Count, model.Version));
+            await _mediator.Send(new RemoveItemsFromInventory(model.Id, model.Count, model.Version));
             return RedirectToAction("Index");
         }
 

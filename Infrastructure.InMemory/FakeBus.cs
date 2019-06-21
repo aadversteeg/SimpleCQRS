@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Infrastructure.InMemory
 {
-    public class FakeBus : ICommandSender, IEventPublisher
+    public class FakeBus : IEventPublisher
     {
         private readonly Dictionary<Type, List<Action<Message>>> _routes = new Dictionary<Type, List<Action<Message>>>();
 
@@ -21,21 +21,6 @@ namespace Infrastructure.InMemory
             }
 
             handlers.Add((x => handler((T)x)));
-        }
-
-        public void Send(Command command)
-        {
-            List<Action<Message>> handlers;
-
-            if (_routes.TryGetValue(command.GetType(), out handlers))
-            {
-                if (handlers.Count != 1) throw new InvalidOperationException("cannot send to more than one handler");
-                handlers[0](command);
-            }
-            else
-            {
-                throw new InvalidOperationException("no handler registered");
-            }
         }
 
         public void Publish(Event @event)
