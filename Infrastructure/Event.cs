@@ -1,8 +1,9 @@
 ﻿using Application;
+using MediatR;
 
 namespace Infrastructure
 {
-    public class Event : Message
+    public class Event : INotification
     {
         public int Version { get; set; }
     }

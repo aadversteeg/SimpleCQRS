@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Application.Commands;
 using Infrastructure;
-using Infrastructure.InMemory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Models;

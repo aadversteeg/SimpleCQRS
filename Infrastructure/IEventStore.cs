@@ -1,13 +1,12 @@
-﻿using Application;
-using Domain.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Infrastructure
 {
     public interface IEventStore
     {
-        void SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion);
+        Task SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion);
         List<Event> GetEventsForAggregate(Guid aggregateId);
     }
 }

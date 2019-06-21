@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.InMemory
 {
     public class EventStore : IEventStore
     {
-        private readonly IEventPublisher _publisher;
+        private readonly IMediator _mediator;
 
         private struct EventDescriptor
         {
@@ -23,14 +25,14 @@ namespace Infrastructure.InMemory
             }
         }
 
-        public EventStore(IEventPublisher publisher)
+        public EventStore(IMediator mediator)
         {
-            _publisher = publisher;
+            _mediator = mediator;
         }
 
         private readonly Dictionary<Guid, List<EventDescriptor>> _current = new Dictionary<Guid, List<EventDescriptor>>();
 
-        public void SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion)
+        public async Task SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion)
         {
             List<EventDescriptor> eventDescriptors;
 
@@ -59,7 +61,7 @@ namespace Infrastructure.InMemory
                 eventDescriptors.Add(new EventDescriptor(aggregateId, @event, i));
 
                 // publish current event to the bus for further processing by subscribers
-                _publisher.Publish(@event);
+                await _mediator.Publish(@event);
             }
         }
 

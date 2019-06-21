@@ -1,20 +1,57 @@
 ﻿using Infrastructure.Events;
+using MediatR;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Infrastructure.InMemory
 {
-    public class InventoryItemDetailView : Handles<InventoryItemCreated>, Handles<InventoryItemDeactivated>, Handles<InventoryItemRenamed>, Handles<ItemsRemovedFromInventory>, Handles<ItemsCheckedInToInventory>
+    public class InventoryItemDetailView : 
+        INotificationHandler<InventoryItemCreated>, 
+        INotificationHandler<InventoryItemDeactivated>, 
+        INotificationHandler<InventoryItemRenamed>, 
+        INotificationHandler<ItemsRemovedFromInventory>, 
+        INotificationHandler<ItemsCheckedInToInventory>
     {
-        public void Handle(InventoryItemCreated message)
+        public Task Handle(InventoryItemCreated message, CancellationToken cancellationToken)
         {
             BullShitDatabase.details.Add(message.Id, new InventoryItemDetailsDto(message.Id, message.Name, 0, 0));
+
+            return Task.CompletedTask;
         }
 
-        public void Handle(InventoryItemRenamed message)
+        public Task Handle(InventoryItemRenamed message, CancellationToken cancellationToken)
         {
             InventoryItemDetailsDto d = GetDetailsItem(message.Id);
             d.Name = message.NewName;
             d.Version = message.Version;
+
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(ItemsRemovedFromInventory message, CancellationToken cancellationToken)
+        {
+            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
+            d.CurrentCount -= message.Count;
+            d.Version = message.Version;
+
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(ItemsCheckedInToInventory message, CancellationToken cancellationToken)
+        {
+            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
+            d.CurrentCount += message.Count;
+            d.Version = message.Version;
+
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(InventoryItemDeactivated message, CancellationToken cancellationToken)
+        {
+            BullShitDatabase.details.Remove(message.Id);
+
+            return Task.CompletedTask;
         }
 
         private InventoryItemDetailsDto GetDetailsItem(Guid id)
@@ -28,25 +65,5 @@ namespace Infrastructure.InMemory
 
             return d;
         }
-
-        public void Handle(ItemsRemovedFromInventory message)
-        {
-            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
-            d.CurrentCount -= message.Count;
-            d.Version = message.Version;
-        }
-
-        public void Handle(ItemsCheckedInToInventory message)
-        {
-            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
-            d.CurrentCount += message.Count;
-            d.Version = message.Version;
-        }
-
-        public void Handle(InventoryItemDeactivated message)
-        {
-            BullShitDatabase.details.Remove(message.Id);
-        }
     }
-
 }

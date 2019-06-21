@@ -28,27 +28,9 @@ namespace WebApplication
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddMediatR(typeof(Application.Commands.CreateInventoryItem).Assembly);
-
-            var bus = new Infrastructure.InMemory.FakeBus();
-
-            var storage = new Infrastructure.InMemory.EventStore(bus);
-            var rep = new Infrastructure.InMemory.Repository<Domain.InventoryItem>(storage);
-
-            services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.InMemory.Repository<Domain.InventoryItem>>(_ => rep);
-
-            var detail = new Infrastructure.InMemory.InventoryItemDetailView();
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemCreated>(detail.Handle);
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemDeactivated>(detail.Handle);
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemRenamed>(detail.Handle);
-            bus.RegisterHandler<Infrastructure.Events.ItemsCheckedInToInventory>(detail.Handle);
-            bus.RegisterHandler<Infrastructure.Events.ItemsRemovedFromInventory>(detail.Handle);
-
-            var list = new Infrastructure.InMemory.InventoryListView();
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemCreated>(list.Handle);
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemRenamed>(list.Handle);
-            bus.RegisterHandler<Infrastructure.Events.InventoryItemDeactivated>(list.Handle);
-
+            services.AddMediatR(typeof(Infrastructure.InMemory.InventoryItemDetailView).Assembly, typeof(Application.Commands.Command).Assembly);
+            services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.InMemory.Repository<Domain.InventoryItem>>();
+            services.AddSingleton<Infrastructure.IEventStore, Infrastructure.InMemory.EventStore>();
             services.AddSingleton<Infrastructure.IReadModelFacade, Infrastructure.InMemory.ReadModelFacade>();
         }
 

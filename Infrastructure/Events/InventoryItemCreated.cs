@@ -6,6 +6,7 @@ namespace Infrastructure.Events
     {
         public readonly Guid Id;
         public readonly string Name;
+
         public InventoryItemCreated(Guid id, string name)
         {
             Id = id;
