@@ -3,7 +3,7 @@ using Domain;
 using System;
 using System.Linq;
 
-namespace Infrastructure.InMemory
+namespace Infrastructure
 {
     public class Repository<T> : IRepository<T> where T : AggregateRoot, new() //shortcut you can do as you see fit with new()
     {

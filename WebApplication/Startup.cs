@@ -29,9 +29,9 @@ namespace WebApplication
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddMediatR(typeof(Infrastructure.Event).Assembly, typeof(Application.Commands.Command).Assembly);
-            services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.InMemory.Repository<Domain.InventoryItem>>();
+            services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.Repository<Domain.InventoryItem>>();
             services.AddSingleton<Infrastructure.IEventStore, Infrastructure.EventStore.EventStore>();
-            services.AddSingleton<Infrastructure.IReadModelFacade, Infrastructure.InMemory.ReadModelFacade>();
+            services.AddSingleton<Infrastructure.IReadModelFacade, Infrastructure.ReadModelFacade>();
             services.AddSingleton<Infrastructure.IDatabase,Infrastructure.BullshitDatabase.BullShitDatabase>();
         }
 
