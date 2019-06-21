@@ -28,10 +28,11 @@ namespace WebApplication
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddMediatR(typeof(Infrastructure.InMemory.InventoryItemDetailView).Assembly, typeof(Application.Commands.Command).Assembly);
+            services.AddMediatR(typeof(Infrastructure.Event).Assembly, typeof(Application.Commands.Command).Assembly);
             services.AddSingleton<Application.IRepository<Domain.InventoryItem>, Infrastructure.InMemory.Repository<Domain.InventoryItem>>();
             services.AddSingleton<Infrastructure.IEventStore, Infrastructure.InMemory.EventStore>();
             services.AddSingleton<Infrastructure.IReadModelFacade, Infrastructure.InMemory.ReadModelFacade>();
+            services.AddSingleton<Infrastructure.IDatabase,Infrastructure.BullshitDatabase.BullShitDatabase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

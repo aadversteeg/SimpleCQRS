@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure.BullshitDatabase\Infrastructure.BullshitDatabase.csproj" />
     <ProjectReference Include="..\Infrastructure.InMemory\Infrastructure.InMemory.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>

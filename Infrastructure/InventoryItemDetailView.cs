@@ -1,10 +1,10 @@
 ﻿using Infrastructure.Events;
 using MediatR;
-using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure.InMemory
+namespace Infrastructure
 {
     public class InventoryItemDetailView : 
         INotificationHandler<InventoryItemCreated>, 
@@ -13,16 +13,23 @@ namespace Infrastructure.InMemory
         INotificationHandler<ItemsRemovedFromInventory>, 
         INotificationHandler<ItemsCheckedInToInventory>
     {
+        private readonly IDatabase _database;
+
+        public InventoryItemDetailView(IDatabase database)
+        {
+            _database = database;
+        }
+
         public Task Handle(InventoryItemCreated message, CancellationToken cancellationToken)
         {
-            BullShitDatabase.details.Add(message.Id, new InventoryItemDetailsDto(message.Id, message.Name, 0, 0));
+            _database.Insert(new InventoryItemDetailsDto(message.Id, message.Name, 0, 0));
 
             return Task.CompletedTask;
         }
 
         public Task Handle(InventoryItemRenamed message, CancellationToken cancellationToken)
         {
-            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
+            var d = _database.DetailItems.First(i => i.Id == message.Id);
             d.Name = message.NewName;
             d.Version = message.Version;
 
@@ -31,7 +38,7 @@ namespace Infrastructure.InMemory
 
         public Task Handle(ItemsRemovedFromInventory message, CancellationToken cancellationToken)
         {
-            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
+            var d = _database.DetailItems.First(i => i.Id == message.Id);
             d.CurrentCount -= message.Count;
             d.Version = message.Version;
 
@@ -40,7 +47,7 @@ namespace Infrastructure.InMemory
 
         public Task Handle(ItemsCheckedInToInventory message, CancellationToken cancellationToken)
         {
-            InventoryItemDetailsDto d = GetDetailsItem(message.Id);
+            var d = _database.DetailItems.First(i => i.Id == message.Id);
             d.CurrentCount += message.Count;
             d.Version = message.Version;
 
@@ -49,21 +56,10 @@ namespace Infrastructure.InMemory
 
         public Task Handle(InventoryItemDeactivated message, CancellationToken cancellationToken)
         {
-            BullShitDatabase.details.Remove(message.Id);
+            var d = _database.DetailItems.First(i => i.Id == message.Id);
+            _database.Delete(d);
 
             return Task.CompletedTask;
-        }
-
-        private InventoryItemDetailsDto GetDetailsItem(Guid id)
-        {
-            InventoryItemDetailsDto d;
-
-            if (!BullShitDatabase.details.TryGetValue(id, out d))
-            {
-                throw new InvalidOperationException("did not find the original inventory this shouldnt happen");
-            }
-
-            return d;
         }
     }
 }

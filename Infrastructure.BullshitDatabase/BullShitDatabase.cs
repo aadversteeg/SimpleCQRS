@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Infrastructure.InMemory
+namespace Infrastructure.BullshitDatabase
 {
     public class BullShitDatabase : IDatabase
     {
