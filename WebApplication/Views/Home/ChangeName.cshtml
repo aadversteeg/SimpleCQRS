@@ -1,0 +1,14 @@
+﻿@model WebApplication.Models.Home.ChangeName
+@{
+    ViewData["Title"] = "Change Name";
+}
+
+<h1>Change Name</h1>
+<form method="post" action="/Home/ChangeName">
+    <!-- Input and Submit elements -->
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Version" type="hidden" />
+    <div>Name: <input asp-for="Name"></div>
+    <button type="submit">Submit</button>
+</form>

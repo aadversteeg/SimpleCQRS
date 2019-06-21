@@ -1,0 +1,14 @@
+﻿@model WebApplication.Models.Home.Remove
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h1>Remove</h1>
+<form method="post" action="/Home/Remove">
+    <!-- Input and Submit elements -->
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Version" type="hidden" />
+    <div>Count: <input asp-for="Count" type="number"></div>
+    <button type="submit">Submit</button>
+</form>

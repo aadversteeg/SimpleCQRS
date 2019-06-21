@@ -1,0 +1,15 @@
+﻿@model WebApplication.Models.Home.CheckIn
+@{
+    ViewData["Title"] = "Check In";
+}
+
+<h1>Check In</h1>
+<form method="post" action="/Home/CheckIn">
+    <!-- Input and Submit elements -->
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Version" type="hidden" />
+    <div>Number: <input asp-for="Number" type="number"></div>
+    <button type="submit">Submit</button>
+</form>
+

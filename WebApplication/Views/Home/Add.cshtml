@@ -1,0 +1,14 @@
+﻿@model WebApplication.Models.Home.Add
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add</h1>
+<form method="post" action="/Home/Add">
+    <!-- Input and Submit elements -->
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
+    <div>Name: <input asp-for="Name"></div>
+    <button type="submit">Submit</button>
+</form>
+
+

@@ -1,0 +1,32 @@
+﻿@model WebApplication.Models.Home.Index
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">All Items</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Add">Add</a>
+    </div>

@@ -1,0 +1,13 @@
+﻿@model WebApplication.Models.Home.Deactivate
+@{
+    ViewData["Title"] = "Deactivate";
+}
+
+<h1>Deactivate</h1>
+<form method="post" action="/Home/Deactivate">
+    <!-- Input and Submit elements -->
+    <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Version" type="hidden" />
+    <button type="submit">Submit</button>
+</form>
